@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: semics
+spec: {}
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: test-java-app
+  name: test-java-app
+  namespace: semics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-java-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: test-java-app
+    spec:
+      containers:
+      - image: test-java-app
+        name: test-java-app
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: test-java-app
+  name: test-java-app
+  namespace: semics
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: test-java-app
+  type: ClusterIP
+status:
+  loadBalancer: {}
